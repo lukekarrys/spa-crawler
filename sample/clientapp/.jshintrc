@@ -1,0 +1,16 @@
+{
+    "asi": false,
+    "browser": true,
+    "curly": false,
+    "expr": true,
+    "indent": 4,
+    "loopfunc": true,
+    "node": true,
+    "predef": [
+      "$"
+    ],
+    "trailing": true,
+    "undef": true,
+    "unused": true,
+    "white": true
+}

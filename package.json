@@ -1,0 +1,44 @@
+{
+  "name": "spa-crawler",
+  "description": "Crawl 100% JS single page apps with phantomjs and node.",
+  "version": "0.0.1",
+  "author": {
+    "url": "http://lukekarrys.com",
+    "email": "luke@lukekarrys.com",
+    "name": "Luke Karrys"
+  },
+  "bugs": {
+    "url": "https://github.com/lukekarrys/spa-crawler/issues"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "rndr-me": "^1.0.0",
+    "simplecrawler": "^0.3.6"
+  },
+  "devDependencies": {
+    "backbone": "^1.1.2",
+    "express": "^4.0.0",
+    "human-view": "^1.7.0",
+    "human-view-switcher": "0.0.1",
+    "jshint": "^2.5.0",
+    "moonboots-express": "^0.1.0",
+    "precommit-hook": "^0.4.1",
+    "jquery": "^2.1.0"
+  },
+  "homepage": "https://github.com/lukekarrys/spa-crawler",
+  "keywords": [
+    "phantomjs",
+    "spa",
+    "crawler"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lukekarrys/spa-crawler.git"
+  },
+  "scripts": {
+    "test": "exit 0",
+    "start": "node sample/server"
+  }
+}
