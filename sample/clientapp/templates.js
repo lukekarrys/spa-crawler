@@ -1,10 +1,10 @@
-var templates;
+var templates = {};
 
 templates.body = function () {
     return [
         '<body>',
-        '<div class="container>',
-        '<div id="pages" role="page-container>',
+        '<div class="container">',
+        '<div id="pages" role="page-container">',
         '</div>',
         '</div>',
         '</body>'
@@ -16,7 +16,7 @@ templates.home = function () {
         '<p>',
         '<a href="/page1">Click</a>',
         '</p>'
-    ];
+    ].join('');
 };
 
 templates.page1 = function () {
@@ -24,7 +24,7 @@ templates.page1 = function () {
         '<p>',
         '<a href="/page2">Click</a>',
         '</p>'
-    ];
+    ].join('');
 };
 
 templates.page2 = function () {
@@ -33,7 +33,7 @@ templates.page2 = function () {
         '<a href="/">Click</a>',
         '<a href="/page1">Click</a>',
         '</p>'
-    ];
+    ].join('');
 };
 
 module.exports = templates;

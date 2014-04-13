@@ -1,5 +1,6 @@
 var Backbone = require('backbone');
-var Pages = require('./pages');
+var PageView = require('human-view');
+var templates = require('./templates');
 
 
 module.exports = Backbone.Router.extend({
@@ -9,12 +10,33 @@ module.exports = Backbone.Router.extend({
         'page2': 'page2'
     },
     home: function () {
-        this.trigger('newPage', new Pages.home());
+        var Page = PageView.extend({
+            pageTitle: 'Home',
+            template: templates.home,
+            render: function () {
+                this.renderAndBind();
+            }
+        });
+        this.trigger('newPage', new Page());
     },
     page1: function () {
-        this.trigger('newPage', new Pages.page1());
+        var Page = PageView.extend({
+            pageTitle: 'Page 1',
+            template: templates.page1,
+            render: function () {
+                this.renderAndBind();
+            }
+        });
+        this.trigger('newPage', new Page());
     },
     page2: function () {
-        this.trigger('newPage', new Pages.page2());
+        var Page = PageView.extend({
+            pageTitle: 'Page 2',
+            template: templates.page2,
+            render: function () {
+                this.renderAndBind();
+            }
+        });
+        this.trigger('newPage', new Page());
     }
 });

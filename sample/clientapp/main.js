@@ -18,7 +18,7 @@ module.exports = HumanView.extend({
     setPage: function (view) {
         this.pageSwitcher.set(view);
         var readyEvent = document.createEvent("Event");
-        readyEvent.initEvent("renderReady", true, true);
+        readyEvent.initEvent("rendered", true, true);
         window.dispatchEvent(readyEvent);
     }
 });

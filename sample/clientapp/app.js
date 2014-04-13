@@ -12,7 +12,7 @@ module.exports = {
         this.history = Backbone.history;
 
         $(function () {
-            var mainView = self.view = new MainView({
+            var mainView = new MainView({
                 el: document.body
             }).render();
             self.router.on('newPage', mainView.setPage, mainView);
