@@ -14,7 +14,7 @@ function SPACrawler(options) {
         port: 8001
     });
 
-    this.appOptions = options.app || {};
+    this.appOptions = url.parse(options.app);
     this.crawlerOptions = options.crawler || {};
 }
 
@@ -24,9 +24,9 @@ SPACrawler.prototype.start = function () {
     return this;
 };
 
-SPACrawler.prototype.stop = function () {
+SPACrawler.prototype.stop = function (killProcess) {
     this.rndr.kill(0);
-    process.exit(0);
+    killProcess && process.exit(0);
 };
 
 SPACrawler.prototype.startRndr = function () {
@@ -40,8 +40,8 @@ SPACrawler.prototype.startRndr = function () {
 
     this.rndr = spawn('phantomjs', args, {cwd: __dirname});
 
-    process.on("SIGINT", this.stop.bind(this));
-    process.on("SIGTERM", this.stop.bind(this));
+    process.on("SIGINT", this.stop.bind(this, true));
+    process.on("SIGTERM", this.stop.bind(this, true));
 };
 
 SPACrawler.prototype.emitURL = function (queueItem) {
@@ -64,6 +64,7 @@ SPACrawler.prototype.startCrawler = function () {
     // Listen to events to get all the urls in the app
     this._crawler.crawler.on('queueadd', this.emitURL.bind(this));
     this._crawler.crawler.on('initialpath', this.emitURL.bind(this));
+    this._crawler.crawler.on('complete', this.stop.bind(this));
     this._crawler.start();
 };
 
