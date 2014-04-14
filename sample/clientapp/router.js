@@ -7,7 +7,8 @@ module.exports = Backbone.Router.extend({
     routes: {
         '': 'home',
         'page1': 'page1',
-        'page2': 'page2'
+        'page2': 'page2',
+        'page3': 'page3'
     },
     home: function () {
         var Page = PageView.extend({
@@ -33,6 +34,16 @@ module.exports = Backbone.Router.extend({
         var Page = PageView.extend({
             pageTitle: 'Page 2',
             template: templates.page2,
+            render: function () {
+                this.renderAndBind();
+            }
+        });
+        this.trigger('newPage', new Page());
+    },
+    page3: function () {
+        var Page = PageView.extend({
+            pageTitle: 'Page 3',
+            template: templates.page3,
             render: function () {
                 this.renderAndBind();
             }

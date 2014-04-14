@@ -3,21 +3,32 @@ var express = require('express');
 var app = express();
 var _ = require('lodash');
 var Crawler = require('..');
-var port = 3000;
+var port = 3010;
+var timeout = 2000;
 
-// Create our spa crawler
+
+// Create our single page app crawler
 var spaCrawler = new Crawler({
+    // Passed directly to `rndr-me`
     rndr: {
-        readyEvent: 'rendered',
-        port: 8001
+        readyEvent: 'rendered'
     },
+    // Passed to `url` for where to
+    // start crawling our single page app
+    app: {
+        hostname: '127.0.0.1',
+        pathname: '/',
+        protocol: 'http:',
+        port: port
+    },
+    // Passed directly to `simplecrawler`
     crawler: {
-        appPort: port,
-        appHost: '127.0.0.1'
+        maxConcurrency: 4
     }
 });
 
-// Create our client server
+
+// Create our app server for our single page app
 var moonboots = new Moonboots({
     server: app,
     moonboots: {
@@ -30,19 +41,20 @@ var moonboots = new Moonboots({
 });
 app.listen(port);
 
+
+// Start out crawler when our app is ready and listen for events
 moonboots.on('ready', function () {
-    // Stop our crawler if we dont have a url for 2 seconds
-    var stop = _.debounce(function () {
-        spaCrawler.stop();
-    }, 2000);
+    // Stop our crawler if we dont have a url for timeout ms
+    var dbStop = _.debounce(spaCrawler.stop.bind(spaCrawler), timeout);
 
     // Start the crawler and get the actual crawler that emits events
-    var crawlerEvents = spaCrawler.start().crawler;
+    var crawler = spaCrawler.start().crawler;
 
-    // On each `spaurl` event log the url and call stop
-    crawlerEvents.on('spaurl', function (url) {
+    // Start the stop timeout once we start
+    crawler.on('crawlstart', dbStop);
+    // On each `spaurl` event log the url
+    crawler.on('spaurl', function (url) {
         console.log(url);
-        stop();
+        dbStop();
     });
 });
-

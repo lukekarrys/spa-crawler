@@ -20,10 +20,10 @@
     "express": "^4.0.0",
     "human-view": "^1.7.0",
     "human-view-switcher": "0.0.1",
+    "jquery": "^2.1.0",
     "jshint": "^2.5.0",
     "moonboots-express": "^0.1.0",
-    "precommit-hook": "^0.4.1",
-    "jquery": "^2.1.0"
+    "precommit-hook": "^0.4.1"
   },
   "homepage": "https://github.com/lukekarrys/spa-crawler",
   "keywords": [
