@@ -22,6 +22,7 @@
     "human-view-switcher": "0.0.1",
     "jquery": "^2.1.0",
     "jshint": "^2.5.0",
+    "lab": "^3.0.1",
     "moonboots-express": "^0.1.0",
     "precommit-hook": "^0.4.1"
   },
@@ -38,7 +39,7 @@
     "url": "git://github.com/lukekarrys/spa-crawler.git"
   },
   "scripts": {
-    "test": "exit 0",
+    "test": "./node_modules/.bin/lab -t 100 -m 10000",
     "start": "node sample/server",
     "sample-server": "node sample/server --server-only"
   }
