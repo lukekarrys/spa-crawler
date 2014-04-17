@@ -12,7 +12,8 @@ var moonboots = new Moonboots({
     moonboots: {
         main: __dirname + '/clientapp/app.js',
         libraries: [__dirname + '/../node_modules/jquery/dist/jquery.js'],
-        stylesheets: [__dirname + '/clientapp/styles.css']
+        stylesheets: [__dirname + '/clientapp/styles.css'],
+        developmentMode: true
     }
 });
 app.listen(3010);

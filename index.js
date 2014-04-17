@@ -3,30 +3,28 @@ var _ = require('lodash');
 var Crawler = require('./lib/crawler');
 var url = require('url');
 
-function parseQueueItem(queueItem) {
-    return url.parse(queueItem.url, true).query.href;
-}
-
 
 function SPACrawler(options) {
+    options || (options = {});
+
     this.rndrOptions = options.rndr || {};
     _.defaults(this.rndrOptions, {
         port: 8001
     });
 
-    this.appOptions = url.parse(options.app);
-    this.crawlerOptions = options.crawler || {};
+    this.appOptions = options.app && url.parse(options.app);
+    this.crawlerOptions = options.crawler;
+
+    this.createCrawler();
 }
 
 SPACrawler.prototype.start = function () {
     this.startRndr();
-    this.createCrawler();
+    // Wait to start crawler until rndr server is ready
+    // It should be ready in 2 seconds but doesn't emit
+    // any events to know for sure
+    _.delay(this.startCrawler.bind(this), 2000);
     return this;
-};
-
-SPACrawler.prototype.stop = function (killProcess) {
-    this.rndr.kill(0);
-    killProcess && process.exit(0);
 };
 
 SPACrawler.prototype.startRndr = function () {
@@ -39,13 +37,24 @@ SPACrawler.prototype.startRndr = function () {
     });
 
     this.rndr = spawn('phantomjs', args, {cwd: __dirname});
+    this.rndr.stdout.on('data', this.logRndr.bind(this));
+    process.on('exit', this.killRndr.bind(this));
+};
 
-    process.on("SIGINT", this.stop.bind(this, true));
-    process.on("SIGTERM", this.stop.bind(this, true));
+SPACrawler.prototype.logRndr = function (data) {
+    // rndr-me only logs anything for errors
+    throw new Error('rndr-me ' + data.toString().toLowerCase());
+};
+
+SPACrawler.prototype.killRndr = function () {
+    this.rndr.kill();
 };
 
 SPACrawler.prototype.emitURL = function (queueItem) {
-    this._crawler.crawler.emit('spaurl', parseQueueItem(queueItem));
+    var parsedUrl = this._crawler.parseQueueItem(queueItem);
+    if (parsedUrl) {
+        this._crawler.crawler.emit('spaurl', parsedUrl);
+    }
 };
 
 SPACrawler.prototype.createCrawler = function () {
@@ -54,17 +63,12 @@ SPACrawler.prototype.createCrawler = function () {
         app: this.appOptions,
         crawler: this.crawlerOptions
     });
-    // Wait to start crawler until rndr server is ready
-    // It should be ready in 2 seconds but doesn't emit
-    // any events to know for sure
-    _.delay(this.startCrawler.bind(this), 2000);
 };
 
 SPACrawler.prototype.startCrawler = function () {
     // Listen to events to get all the urls in the app
     this._crawler.crawler.on('queueadd', this.emitURL.bind(this));
     this._crawler.crawler.on('initialpath', this.emitURL.bind(this));
-    this._crawler.crawler.on('complete', this.stop.bind(this));
     this._crawler.start();
 };
 

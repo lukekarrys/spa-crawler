@@ -99,12 +99,11 @@ Each instance of `spa-crawler` will have a `crawler` property. This property wil
 ### Methods
 
 - `start`: Starts the `rndr-me` server and the crawler.
-- `stop` (kill): Stops (and kills) the `rndr-me` spawned process. Also optionally `kill`s the parent process.
-
+- `killRndr`: Kills the `rndr-me` server.
 
 ## Test
 
-Run `npm test` (yeah...sorry, this is coming soon).
+Run `npm test`.
 
 
 ## Sample
