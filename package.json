@@ -39,7 +39,7 @@
     "url": "git://github.com/lukekarrys/spa-crawler.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/lab -t 100 -m 10000",
+    "test": "./node_modules/.bin/lab -t 100 -m 20000",
     "start": "node sample/server",
     "sample-server": "node sample/server --server-only"
   }
