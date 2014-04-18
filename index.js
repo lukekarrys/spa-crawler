@@ -9,7 +9,8 @@ function SPACrawler(options) {
 
     this.rndrOptions = options.rndr || {};
     _.defaults(this.rndrOptions, {
-        port: 8001
+        port: 8001,
+        readyEvent: 'rendered'
     });
 
     this.appOptions = options.app && url.parse(options.app);
