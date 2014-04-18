@@ -107,7 +107,6 @@ Lab.experiment('Crawler', function () {
 
         d.run(function () {
             c = createCrawler({
-                app: 'http://127.0.0.1:3001/',
                 rndr: {
                     port: 3001
                 }
@@ -126,6 +125,7 @@ Lab.experiment('Crawler', function () {
             }
         });
         Lab.expect(c.crawler.initialPort).to.equal(8010);
+        Lab.expect(c.crawler.maxConcurrency).to.equal(1);
         done();
     });
 });
