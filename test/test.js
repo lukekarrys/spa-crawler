@@ -4,17 +4,6 @@ var express = require('express');
 var Crawler = require('..');
 var domain = require('domain');
 
-function doneCount(expectCount, done) {
-    var count = 0;
-    return function (cb) {
-        count++;
-        if (count === expectCount) {
-            cb && cb();
-            done();
-        }
-    };
-}
-
 function moonbootsServer(port, main) {
     var app = express();
     var moonboots = new Moonboots({
@@ -34,6 +23,14 @@ function createCrawler(options) {
     return new Crawler(options);
 }
 
+var expectedUrls = ['/', '/page1', '/page2', '/page3'];
+
+function appendDomain(d) {
+    return function (u) {
+        return d + u;
+    };
+}
+
 Lab.experiment('Crawler', function () {
     Lab.before(function (done) {
         var moonboots = moonbootsServer(3010);
@@ -46,32 +43,54 @@ Lab.experiment('Crawler', function () {
     });
 
     Lab.test('Emits with a custom event and url', function (done) {
-        var _done = doneCount(4, done);
+        var host = 'http://localhost:3010';
         var c = createCrawler({
-            app: 'http://localhost:3010/',
+            app: host + '/',
             rndr: {readyEvent: 'rendered'},
             crawler: {
                 maxConcurrency: 1
             }
         });
+        var urls = [];
+        var count = 0;
         c.start().crawler.on('spaurl', function (url) {
-            Lab.expect(url.indexOf('http://localhost:3010/')).to.equal(0);
+            urls.push(url);
+            count++;
             Lab.expect(c.crawler.maxConcurrency).to.equal(1);
-            _done(function () {
+            if (count === 4) {
+                urls.sort();
+                console.log(JSON.stringify(urls, null, 2));
+                Lab.expect(
+                    urls.join()
+                ).to.equal(
+                    expectedUrls.map(appendDomain(host)).join()
+                );
                 c.killRndr();
-            });
+                done();
+            }
         });
     });
 
     Lab.test('Emits with defaults', function (done) {
-        var _done = doneCount(4, done);
+        var host = 'http://127.0.0.1:3001';
         var c = createCrawler();
+        var urls = [];
+        var count = 0;
         c.start().crawler.on('spaurl', function (url) {
-            Lab.expect(url.indexOf('http://127.0.0.1:3001/')).to.equal(0);
+            urls.push(url);
+            count++;
             Lab.expect(c.crawler.maxConcurrency).to.equal(5);
-            _done(function () {
+            if (count === 4) {
+                urls.sort();
+                console.log(JSON.stringify(urls, null, 2));
+                Lab.expect(
+                    urls.join()
+                ).to.equal(
+                    expectedUrls.map(appendDomain(host)).join()
+                );
                 c.killRndr();
-            });
+                done();
+            }
         });
     });
 
