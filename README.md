@@ -90,6 +90,14 @@ The single page app in the example above is in `sample/clientapp`. Check out the
 - `rndr` (default `{}`): This object is passed directly to [`rndr-me`](https://github.com/jed/rndr.me). You can use all the [options](https://github.com/jed/rndr.me#api) that are available in its documentation. *Note: there is a default port `8001` and a default readyEvent `rendered` that will be set on the rndr server.*
 - `crawler` (default: `{}`): This object is passed directly to [`simplecrawler`](https://github.com/cgiffard/node-simplecrawler). You can use all the [options](https://github.com/cgiffard/node-simplecrawler#configuring-the-crawler) that are available in its documentation, **except** `host`, `initialPath`, `initialPort`, and `initialProtocol`. You should use the `app` option to specify these.
 
+### rndr-me
+
+`spa-crawler` utilizes [`rndr-me`](https://github.com/jed/rndr.me), which has a very apt description "an HTTP server that uses PhantomJS to render HTML".
+
+One caveat to using it this way, is that you will almost always want to use the `readyEvent` option. See the [api](https://github.com/jed/rndr.me#api) for specific instructions on how to do that.
+
+This is because most single page apps will not be ready when the `window.load` event fires (which is what `rndr-me` listens to by default). In my tests even the most basic use of `Backbone` + writing to the DOM once had race conditions where it wouldn't always be ready.
+
 ### Events
 
 Each instance of `spa-crawler` will have a `crawler` property. This property will emit all the same [events](https://github.com/cgiffard/node-simplecrawler#events) as `simplecrawler`. There is also one additional event:
