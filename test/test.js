@@ -38,7 +38,7 @@ Lab.experiment('Crawler', function () {
     Lab.before(function (done) {
         var moonboots = moonbootsServer(3010);
         moonboots.on('ready', function () {
-            var moonboots2 = moonbootsServer(3001, 'app2');
+            var moonboots2 = moonbootsServer(3001);
             moonboots2.on('ready', function () {
                 done();
             });
@@ -68,7 +68,7 @@ Lab.experiment('Crawler', function () {
         var _done = doneCount(4, done);
         var c = createCrawler();
         c.start().crawler.on('spaurl', function (url) {
-            console.log('Found', url);
+            console.log('Found', url, url.indexOf('http://127.0.0.1:3001/'));
             Lab.expect(url.indexOf('http://127.0.0.1:3001/')).to.equal(0);
             Lab.expect(c.crawler.maxConcurrency).to.equal(5);
             _done(function () {

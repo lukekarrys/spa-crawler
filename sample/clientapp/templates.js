@@ -19,8 +19,9 @@ templates.home = function () {
         '<a href="http://google.com">Google</a>',
         '<a href="http://twitter.com">Twitter</a>',
         '<a href="http://lukekarrys.com?href=http%3A%2F%2Flukekarrys.com">Test</a>',
-        '<a href="http://localhost:3010?href=http%3A%2F%2Flukekarrys.com">Test</a>',
+        '<a href="/?href=http%3A%2F%2Flukekarrys.com">Test</a>',
         '<a href="http://127.0.0.1:3010?href=http%3A%2F%2Flukekarrys.com">Test</a>',
+        '<a href="http://localhost:3010?href=http%3A%2F%2Flukekarrys.com">Test</a>',
         '<a href="http://localhost:3001?href=http%3A%2F%2Flukekarrys.com">Test</a>',
         '<a href="http://127.0.0.1:3001?href=http%3A%2F%2Flukekarrys.com">Test</a>',
         '</p>'

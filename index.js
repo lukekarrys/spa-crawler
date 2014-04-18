@@ -42,8 +42,9 @@ SPACrawler.prototype.startRndr = function () {
 };
 
 SPACrawler.prototype.logRndr = function (data) {
+    var msg = data.toString().toLowerCase();
     // rndr-me only logs anything for errors
-    throw new Error('rndr-me ' + data.toString().toLowerCase());
+    throw new Error('rndr-me ' + msg);
 };
 
 SPACrawler.prototype.killRndr = function () {
@@ -51,10 +52,7 @@ SPACrawler.prototype.killRndr = function () {
 };
 
 SPACrawler.prototype.emitURL = function (queueItem) {
-    var parsedUrl = this._crawler.parseQueueItem(queueItem);
-    if (parsedUrl) {
-        this._crawler.crawler.emit('spaurl', parsedUrl);
-    }
+    this._crawler.crawler.emit('spaurl', this._crawler.parseQueueItem(queueItem));
 };
 
 SPACrawler.prototype.createCrawler = function () {
