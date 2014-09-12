@@ -3,6 +3,7 @@ var _ = require('lodash');
 var Crawler = require('./lib/crawler');
 var url = require('url');
 var phantomjs = require('phantomjs');
+var path = require('path');
 
 
 function SPACrawler(options) {
@@ -30,7 +31,7 @@ SPACrawler.prototype.start = function () {
 };
 
 SPACrawler.prototype.startRndr = function () {
-    var args = ['./node_modules/rndr-me/server.js'];
+    var args = [path.join(__dirname, './node_modules/rndr-me/server.js')];
 
     // Make args like `--key value` for spawned process
     _.each(this.rndrOptions, function (val, key) {
@@ -40,6 +41,7 @@ SPACrawler.prototype.startRndr = function () {
 
     this.rndr = spawn(phantomjs.path, args);
     this.rndr.stdout.on('data', this.logRndr.bind(this));
+    this.rndr.stderr.on('data', this.logRndr.bind(this));
     process.on('exit', this.killRndr.bind(this));
 };
 
