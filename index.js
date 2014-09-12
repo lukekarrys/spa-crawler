@@ -2,6 +2,7 @@ var spawn = require('child_process').spawn;
 var _ = require('lodash');
 var Crawler = require('./lib/crawler');
 var url = require('url');
+var phantomjs = require('phantomjs');
 
 
 function SPACrawler(options) {
@@ -37,7 +38,7 @@ SPACrawler.prototype.startRndr = function () {
         args.push(val);
     });
 
-    this.rndr = spawn('./node_modules/.bin/phantomjs', args);
+    this.rndr = spawn(phantomjs.path, args);
     this.rndr.stdout.on('data', this.logRndr.bind(this));
     process.on('exit', this.killRndr.bind(this));
 };
