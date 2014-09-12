@@ -37,7 +37,7 @@ SPACrawler.prototype.startRndr = function () {
         args.push(val);
     });
 
-    this.rndr = spawn('phantomjs', args);
+    this.rndr = spawn('./node_modules/.bin/phantomjs', args);
     this.rndr.stdout.on('data', this.logRndr.bind(this));
     process.on('exit', this.killRndr.bind(this));
 };

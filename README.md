@@ -8,8 +8,7 @@ spa-crawler
 
 ## Install
 
-1. [Install PhantomJS](http://phantomjs.org/download.html)
-2. `npm install spa-crawler --save`
+`npm install spa-crawler --save`
 
 
 ## Why?
@@ -63,8 +62,10 @@ moonboots.on('ready', function () {
     spaCrawler.start().crawler
         // Log each url
         .on('spaurl', console.log)
-        // When the crawler is done, stop and kill the process
-        .on('complete', spaCrawler.stop.bind(spaCrawler, true));
+        // When the crawler is done, kill the process
+        .on('complete', function () {
+            process.exit(0);
+        });
 });
 ```
 

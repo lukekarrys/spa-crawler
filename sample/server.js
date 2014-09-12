@@ -37,5 +37,7 @@ var spaCrawler = new Crawler({
 moonboots.on('ready', function () {
     spaCrawler.start().crawler
         .on('spaurl', console.log)
-        .on('complete', spaCrawler.stop.bind(spaCrawler, true));
+        .on('complete', function () {
+            process.exit(0);
+        });
 });

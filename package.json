@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "lodash": "^2.4.1",
+    "phantomjs": "^1.9.7-15",
     "rndr-me": "^1.0.0",
     "simplecrawler": "^0.3.6"
   },
