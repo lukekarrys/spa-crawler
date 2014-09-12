@@ -17,6 +17,7 @@ function SPACrawler(options) {
 
     this.appOptions = options.app && url.parse(options.app);
     this.crawlerOptions = options.crawler;
+    this.delayStart = typeof options.delayStart === 'number' ? options.delayStart : 2000;
 
     this.createCrawler();
 }
@@ -26,7 +27,7 @@ SPACrawler.prototype.start = function () {
     // Wait to start crawler until rndr server is ready
     // It should be ready in 2 seconds but doesn't emit
     // any events to know for sure
-    _.delay(this.startCrawler.bind(this), 2000);
+    _.delay(this.startCrawler.bind(this), this.delayStart);
     return this;
 };
 

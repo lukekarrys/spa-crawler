@@ -90,6 +90,7 @@ The single page app in the example above is in `sample/clientapp`. Check out the
 - `app` (required): This is the url of the initial page of the single page app that you wish to crawl.
 - `rndr` (default `{}`): This object is passed directly to [`rndr-me`](https://github.com/jed/rndr.me). You can use all the [options](https://github.com/jed/rndr.me#api) that are available in its documentation. *Note: there is a default port `8001` and a default readyEvent `rendered` that will be set on the rndr server.*
 - `crawler` (default: `{}`): This object is passed directly to [`simplecrawler`](https://github.com/cgiffard/node-simplecrawler). You can use all the [options](https://github.com/cgiffard/node-simplecrawler#configuring-the-crawler) that are available in its documentation, **except** `host`, `initialPath`, `initialPort`, and `initialProtocol`. You should use the `app` option to specify these.
+- `delayStart` (default: `2000`): Number in milliseconds to wait until the crawler starts. This usually doesn't need to be changed but I've had cases where the `rndr-me` server wasn't started in time, causing the crawl to stop after the initial path.
 
 ### rndr-me
 

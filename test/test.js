@@ -46,6 +46,7 @@ Lab.experiment('Crawler', function () {
         var host = 'http://localhost:3010';
         var c = createCrawler({
             app: host + '/',
+            delayStart: 2200,
             rndr: {readyEvent: 'rendered'},
             crawler: {
                 maxConcurrency: 1
