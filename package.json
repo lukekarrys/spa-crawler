@@ -1,7 +1,7 @@
 {
   "name": "spa-crawler",
   "description": "Crawl 100% JS single page apps with phantomjs and node.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "url": "http://lukekarrys.com",
     "email": "luke@lukekarrys.com",
