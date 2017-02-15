@@ -11,36 +11,47 @@
     "url": "https://github.com/lukekarrys/spa-crawler/issues"
   },
   "dependencies": {
-    "lodash": "^2.4.1",
-    "phantomjs": "^1.9.7-15",
-    "rndr-me": "^1.0.0",
-    "simplecrawler": "0.3.6"
+    "lodash": "^4.17.4",
+    "mime-types": "^2.1.14",
+    "minimist": "^1.2.0",
+    "phantomjs": "^2.1.7",
+    "simplecrawler": "^1.0.4"
   },
   "devDependencies": {
-    "backbone": "^1.1.2",
-    "express": "^4.0.0",
-    "human-view": "^1.7.0",
-    "human-view-switcher": "0.0.1",
-    "jquery": "^2.1.0",
-    "lab": "^3.0.1",
-    "moonboots-express": "^0.1.0",
-    "precommit-hook": "^1.0.5"
+    "ampersand-main-view": "^1.0.3",
+    "ampersand-router": "^4.0.0",
+    "ampersand-view": "^10.0.1",
+    "code": "^4.0.0",
+    "domready": "^1.0.8",
+    "express": "^4.14.1",
+    "git-validate": "^2.2.2",
+    "lab": "^12.1.0",
+    "moonboots-express": "^3.0.0",
+    "standard": "^8.6.0"
   },
   "homepage": "https://github.com/lukekarrys/spa-crawler",
   "keywords": [
+    "crawler",
     "phantomjs",
-    "spa",
-    "crawler"
+    "spa"
   ],
   "license": "MIT",
   "main": "index.js",
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/lukekarrys/spa-crawler.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/lab -t 100 -m 20000",
-    "start": "node sample/server",
-    "sample-server": "node sample/server --server-only"
+    "lint": "standard",
+    "start:client": "node sample/client-server",
+    "start:rndr": "phantomjs lib/rndr.js --ready_event rendered",
+    "start": "NODE_ENV=production node sample/server",
+    "test": "NODE_ENV=test lab -t 90 -m 60000",
+    "validate": "npm ls"
   }
 }
