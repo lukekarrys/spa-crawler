@@ -22,51 +22,29 @@ That being said, I think the fact that this is possible is just really cool and 
 
 ## Usage
 
-Here's an example to use this in conjunction with [`moonboots-express`](https://github.com/lukekarrys/moonboots-express) which is a module that streamlines single page app development in Express. You can run this example with `npm start`.
+Here's an example of how you'd crawl a local single page app. You can check out the [`sample`](./sample) directory for an example that uses this in conjunction with [`moonboots-express`](https://github.com/lukekarrys/moonboots-express) which is a module that streamlines single page app development in Express. You can run this example with `npm start`.
 
 ```js
-// For the single page app
-var Moonboots = require('moonboots-express');
-var express = require('express');
-var app = express();
+var Crawler = require('spa-crawler')
 
-// The crawler
-var Crawler = require('spa-crawler');
+var crawler = new Crawler({
+  // Passed directly to `rndr-me`
+  rndr: {
+    // The single page app should emit this event
+    // when it is done rendering each page
+    readyEvent: 'rendered'
+  },
+  // The initial url of the single page app
+  app: 'http://127.0.0.1:3010/'
+})
 
-// Create a server for the single page app
-var moonboots = new Moonboots({
-    server: app,
-    moonboots: {
-        main: __dirname + '/clientapp/app.js',
-        libraries: [__dirname + '/../node_modules/jquery/dist/jquery.js'],
-        stylesheets: [__dirname + '/clientapp/styles.css']
-    }
-});
-app.listen(3010);
-
-// Configure the crawler
-var spaCrawler = new Crawler({
-    // Passed directly to `rndr-me`
-    rndr: {
-        // The single page app should emit this event
-        // when it is done rendering each page
-        readyEvent: 'rendered'
-    },
-    // The initial url of the single page app
-    app: 'http://127.0.0.1:3010/'
-});
-
-
-// Start out crawler when our app is ready and listen for urls
-moonboots.on('ready', function () {
-    spaCrawler.start().crawler
-        // Log each url
-        .on('spaurl', console.log)
-        // When the crawler is done, kill the process
-        .on('complete', function () {
-            process.exit(0);
-        });
-});
+// Start out crawler when your app is ready and listen for urls
+crawler.start().crawler
+  // Log each url
+  .on('spaurl', console.log.bind(console))
+  // When the crawler is done, kill the process
+  .on('complete', () =>process.exit(0))
+})
 ```
 
 The above code will output:
@@ -80,7 +58,7 @@ http://127.0.0.1:3010/page3
 http://127.0.0.1:3010/page2
 ```
 
-The single page app in the example above is in `sample/clientapp`. Check out the code or run `npm run sample-server` and go to [http://127.0.0.1:3010](http://127.0.0.1:3010) to see what the rendered HTML looks like. Also check out the source to see that it's just a `<script>` tag.
+The single page app in the example above is in `sample/client-app`. Check out the code or run `npm run start:client` and go to [http://127.0.0.1:3010](http://127.0.0.1:3010) to see what the rendered HTML looks like. Also check out the source to see that it's just a `<script>` tag.
 
 
 ## API
@@ -90,7 +68,6 @@ The single page app in the example above is in `sample/clientapp`. Check out the
 - `app` (required): This is the url of the initial page of the single page app that you wish to crawl.
 - `rndr` (default `{}`): This object is passed directly to [`rndr-me`](https://github.com/jed/rndr.me). You can use all the [options](https://github.com/jed/rndr.me#api) that are available in its documentation. *Note: there is a default port `8001` and a default readyEvent `load` that will be set on the rndr server.*
 - `crawler` (default: `{}`): This object is passed directly to [`simplecrawler`](https://github.com/cgiffard/node-simplecrawler). You can use all the [options](https://github.com/cgiffard/node-simplecrawler#configuring-the-crawler) that are available in its documentation, **except** `host`, `initialPath`, `initialPort`, and `initialProtocol`. You should use the `app` option to specify these.
-- `delayStart` (default: `3000`): Number in milliseconds to wait until the crawler starts. This usually doesn't need to be changed but I've had cases where the `rndr-me` server wasn't started in time, causing the crawl to stop after the initial path.
 
 ### rndr-me
 
@@ -109,7 +86,7 @@ Each instance of `spa-crawler` will have a `crawler` property. This property wil
 ### Methods
 
 - `start`: Starts the `rndr-me` server and the crawler.
-- `killRndr`: Kills the `rndr-me` server.
+- `close`: Kills the `rndr-me` server.
 
 ## Test
 
@@ -118,7 +95,7 @@ Run `npm test`.
 
 ## Sample
 
-Run `npm start` to see the sample crawler run. Or run `npm run sample-server` to examine the sample single page app at [http://127.0.0.1:3010](http://127.0.0.1:3010).
+Run `npm start` to see the sample crawler run. Or run `npm run start:client` to examine the sample single page app at [http://127.0.0.1:3010](http://127.0.0.1:3010).
 
 
 #License
