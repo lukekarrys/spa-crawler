@@ -38,4 +38,23 @@ lab.experiment('Crawler', () => {
         done()
       })
   })
+
+  lab.test('Errors without a port', (done) => {
+    var host = `http://localhost:${port}`
+
+    class ErrorCrawler extends Crawler {
+      logRndr (data, type) {
+        data = super.logRndr(data, type)
+        Code.expect(data).to.equal('Could not bind to port null')
+        done()
+      }
+    }
+
+    crawler = new ErrorCrawler({
+      app: host,
+      rndr: { port: null }
+    })
+
+    crawler.start()
+  })
 })
