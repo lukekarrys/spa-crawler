@@ -4,7 +4,7 @@ var lab = exports.lab = Lab.script()
 var Crawler = require('../lib/index')
 var clientServer = require('../sample/client-server')
 
-var port = 3010
+var port = 3000
 
 lab.experiment('Crawler', () => {
   var client

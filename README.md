@@ -28,14 +28,13 @@ Here's an example of how you'd crawl a local single page app. You can check out 
 var Crawler = require('spa-crawler')
 
 var crawler = new Crawler({
-  // Passed directly to `rndr-me`
   rndr: {
     // The single page app should emit this event
     // when it is done rendering each page
     readyEvent: 'rendered'
   },
   // The initial url of the single page app
-  app: 'http://127.0.0.1:3010/'
+  app: 'http://localhost:3000'
 })
 
 // Start out crawler when your app is ready and listen for urls
@@ -43,7 +42,7 @@ crawler.start().crawler
   // Log each url
   .on('spaurl', console.log.bind(console))
   // When the crawler is done, kill the process
-  .on('complete', () =>process.exit(0))
+  .on('complete', () => process.exit(0))
 })
 ```
 
@@ -52,13 +51,13 @@ The above code will output:
 ```
 $ npm start
 
-http://127.0.0.1:3010/
-http://127.0.0.1:3010/page1
-http://127.0.0.1:3010/page3
-http://127.0.0.1:3010/page2
+http://localhost:3000/
+http://localhost:3000/page1
+http://localhost:3000/page3
+http://localhost:3000/page2
 ```
 
-The single page app in the example above is in `sample/client-app`. Check out the code or run `npm run start:client` and go to [http://127.0.0.1:3010](http://127.0.0.1:3010) to see what the rendered HTML looks like. Also check out the source to see that it's just a `<script>` tag.
+The single page app in the example above is in `sample/client-app`. Check out the code or run `npm run start:client` and go to [http://localhost:3000](http://localhost:3000) to see what the rendered HTML looks like. Also check out the source to see that it's just a `<script>` tag.
 
 
 ## API
@@ -67,7 +66,7 @@ The single page app in the example above is in `sample/client-app`. Check out th
 
 - `app` (required): This is the url of the initial page of the single page app that you wish to crawl.
 - `rndr` (default `{}`): This object is passed directly to [`rndr-me`](https://github.com/jed/rndr.me). You can use all the [options](https://github.com/jed/rndr.me#api) that are available in its documentation. *Note: there is a default port `8001` and a default readyEvent `load` that will be set on the rndr server.*
-- `crawler` (default: `{}`): This object is passed directly to [`simplecrawler`](https://github.com/cgiffard/node-simplecrawler). You can use all the [options](https://github.com/cgiffard/node-simplecrawler#configuring-the-crawler) that are available in its documentation, **except** `host`, `initialPath`, `initialPort`, and `initialProtocol`. You should use the `app` option to specify these.
+- `crawler` (default: `{}`): This object is passed directly to [`simplecrawler`](https://github.com/cgiffard/node-simplecrawler). You can use all the [options](https://github.com/cgiffard/node-simplecrawler#configuring-the-crawler) that are available in its documentation.
 
 ### rndr-me
 
@@ -95,7 +94,7 @@ Run `npm test`.
 
 ## Sample
 
-Run `npm start` to see the sample crawler run. Or run `npm run start:client` to examine the sample single page app at [http://127.0.0.1:3010](http://127.0.0.1:3010).
+Run `npm start` to see the sample crawler run. Or run `npm run start:client` to examine the sample single page app at [http://localhost:3000](http://localhost:3000).
 
 
 #License

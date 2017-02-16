@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "ampersand-main-view": "^1.0.3",
-    "ampersand-router": "^4.0.0",
     "ampersand-view": "^10.0.1",
     "code": "^4.0.0",
     "domready": "^1.0.8",
@@ -48,10 +47,10 @@
   },
   "scripts": {
     "lint": "standard",
-    "start:client": "node sample/client-server",
+    "start:client": "node -e \"require('./sample/client-server')(3000, () => console.log('ready'))\"",
     "start:rndr": "phantomjs lib/rndr.js --ready_event rendered",
     "start": "NODE_ENV=production node sample/server",
-    "test": "NODE_ENV=test lab -t 90 -m 60000",
+    "test": "NODE_ENV=test lab -t 100 -m 60000",
     "validate": "npm ls"
   }
 }

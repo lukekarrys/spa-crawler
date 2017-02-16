@@ -1,63 +1,23 @@
 var AmpMainView = require('ampersand-main-view')
 var View = require('ampersand-view')
+var domready = require('domready')
 
-var templates = {
-  home: function () {
-    return [
-      '<p>',
-      '<a href="/page1">Page 1</a>',
-      '<a href="/page3">Page 3</a>',
-      '<a href="http://google.com">Google</a>',
-      '<a href="http://twitter.com">Twitter</a>',
-      '</p>'
-    ].join('')
-  },
-  page1: function () {
-    return [
-      '<p>',
-      '<a href="/page2">Page 2</a>',
-      '</p>'
-    ].join('')
-  },
-  page2: function () {
-    return [
-      '<p>',
-      '<a href="/">Home</a>',
-      '<a href="/page1">Page 1</a>',
-      '</p>'
-    ].join('')
-  },
-  page3: function () {
-    return [
-      '<p>',
-      '<a href="/">Home</a>',
-      '<a href="/page1">Page 1</a>',
-      '</p>'
-    ].join('')
-  },
-  page404: function () {
-    return [
-      '<p>',
-      'NotFound',
-      '</p>'
-    ].join('')
-  }
-}
-
-var dispatchRendered = function () {
-  var readyEvent = document.createEvent('Event')
-  readyEvent.initEvent('rendered', true, true)
-  window.dispatchEvent(readyEvent)
+var triggerPage = function (template) {
+  this.triggerPage(new View({
+    template: function () {
+      return '<p>' + (Array.isArray(template) ? template.join('') : template) + '</p>'
+    }
+  }))
 }
 
 var MainView = AmpMainView.extend({
-  template: '<div><div data-hook="page"></div></div>',
-
+  template: '<div data-hook="page"></div>',
   updatePage: function (page) {
     AmpMainView.prototype.updatePage.call(this, page)
-    dispatchRendered()
+    var readyEvent = document.createEvent('Event')
+    readyEvent.initEvent('rendered', true, true)
+    window.dispatchEvent(readyEvent)
   },
-
   router: {
     routes: {
       '': 'home',
@@ -67,34 +27,35 @@ var MainView = AmpMainView.extend({
       '*notFound': 'page404'
     },
     home: function () {
-      this.triggerPage(new View({
-        template: templates.home
-      }))
+      triggerPage.call(this, [
+        '<a href="/page1">Page 1</a>',
+        '<a href="/page3">Page 3</a>',
+        '<a href="http://google.com">Google</a>',
+        '<a href="http://twitter.com">Twitter</a>',
+        '<a href="http://localhost:3011">Different port</a>'
+      ])
     },
     page1: function () {
-      this.triggerPage(new View({
-        template: templates.page1
-      }))
+      triggerPage.call(this, '<a href="/page2">Page 2</a>')
     },
     page2: function () {
-      this.triggerPage(new View({
-        template: templates.page2
-      }))
+      triggerPage.call(this, [
+        '<a href="/">Home</a>',
+        '<a href="/page1">Page 1</a>'
+      ])
     },
     page3: function () {
-      this.triggerPage(new View({
-        template: templates.page3
-      }))
+      triggerPage.call(this, [
+        '<a href="/">Home</a>',
+        '<a href="/page1">Page 1</a>',
+        '<a href="/page2">Page 2</a>'
+      ])
     },
     page404: function () {
-      this.triggerPage(new View({
-        template: templates.page404
-      }))
+      triggerPage.call(this, 'Not Found')
     }
   }
 })
 
-require('domready')(function () {
-  // eslint-disable-next-line no-new
-  new MainView()
-})
+// eslint-disable-next-line no-new
+domready(function () { new MainView() })

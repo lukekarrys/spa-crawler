@@ -7,14 +7,14 @@ var client = require('./client-server')
 
 // Configure the crawler
 var crawler = new Crawler({
-  app: 'http://127.0.0.1:3010/',
+  app: 'http://localhost:3000/',
   rndr: { readyEvent: 'rendered' }
 })
 
 var start = Date.now()
 
 // Start out crawler when our app is ready and listen for urls
-client(3010, (app) => crawler.start().crawler
+client(3000, (app) => crawler.start().crawler
   .on('spaurl', (url) => console.log(url))
   .on('complete', () => {
     console.log(`Completed in ${(Date.now() - start) / 1000}`)
