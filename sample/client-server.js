@@ -1,3 +1,5 @@
+'use strict'
+
 var Moonboots = require('moonboots-express')
 var express = require('express')
 var path = require('path')

@@ -1,3 +1,4 @@
+'use strict'
 
 // The crawler
 var Crawler = require('../lib/index')
