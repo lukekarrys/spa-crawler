@@ -24,7 +24,7 @@
     "domready": "^1.0.8",
     "express": "^4.14.1",
     "git-validate": "^2.2.2",
-    "lab": "^12.1.0",
+    "lab": "^13.0.0",
     "moonboots-express": "^3.0.0",
     "standard": "^9.0.0"
   },
