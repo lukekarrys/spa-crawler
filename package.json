@@ -26,7 +26,7 @@
     "git-validate": "^2.2.2",
     "lab": "^13.0.1",
     "moonboots-express": "^3.0.0",
-    "standard": "^9.0.0"
+    "standard": "^10.0.2"
   },
   "homepage": "https://github.com/lukekarrys/spa-crawler",
   "keywords": [
