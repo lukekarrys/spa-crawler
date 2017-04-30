@@ -1,6 +1,8 @@
 spa-crawler
 ===========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lukekarrys/spa-crawler.svg)](https://greenkeeper.io/)
+
 [![NPM](https://nodei.co/npm/spa-crawler.png)](https://nodei.co/npm/spa-crawler/)
 [![Build Status](https://travis-ci.org/lukekarrys/spa-crawler.png?branch=master)](https://travis-ci.org/lukekarrys/spa-crawler)
 
