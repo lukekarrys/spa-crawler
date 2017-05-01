@@ -1,10 +1,12 @@
 spa-crawler
 ===========
 
+**Crawl 100% JS single page apps with phantomjs and node.**
+
 [![NPM](https://nodei.co/npm/spa-crawler.png)](https://nodei.co/npm/spa-crawler/)
 [![Build Status](https://travis-ci.org/lukekarrys/spa-crawler.png?branch=master)](https://travis-ci.org/lukekarrys/spa-crawler)
+[![Greenkeeper badge](https://badges.greenkeeper.io/lukekarrys/spa-crawler.svg)](https://greenkeeper.io/)
 
-**Crawl 100% JS single page apps with phantomjs and node.**
 
 ## Install
 
