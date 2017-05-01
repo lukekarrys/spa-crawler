@@ -12,19 +12,20 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "mime-types": "^2.1.14",
+    "mime-types": "^2.1.15",
     "minimist": "^1.2.0",
     "phantomjs": "^2.1.7",
-    "simplecrawler": "^1.0.4"
+    "simplecrawler": "^1.1.1"
   },
   "devDependencies": {
     "ampersand-main-view": "^1.0.3",
     "ampersand-view": "^10.0.1",
     "code": "^4.0.0",
     "domready": "^1.0.8",
-    "express": "^4.14.1",
+    "eslint": "^3.19.0",
+    "express": "^4.15.2",
     "git-validate": "^2.2.2",
-    "lab": "^13.0.1",
+    "lab": "^13.0.3",
     "moonboots-express": "^3.0.0",
     "standard": "^10.0.2"
   },
