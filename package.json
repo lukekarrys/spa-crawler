@@ -25,7 +25,7 @@
     "eslint": "^3.19.0",
     "express": "^4.15.2",
     "git-validate": "^2.2.2",
-    "lab": "^13.0.3",
+    "lab": "^14.0.0",
     "moonboots-express": "^3.0.0",
     "standard": "^10.0.2"
   },
