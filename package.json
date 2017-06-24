@@ -22,7 +22,7 @@
     "ampersand-view": "^10.0.1",
     "code": "^4.0.0",
     "domready": "^1.0.8",
-    "eslint": "^3.19.0",
+    "eslint": "^4.1.0",
     "express": "^4.15.2",
     "git-validate": "^2.2.2",
     "lab": "^14.0.0",
