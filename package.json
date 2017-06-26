@@ -22,12 +22,17 @@
     "ampersand-view": "^10.0.1",
     "code": "^4.0.0",
     "domready": "^1.0.8",
-    "eslint": "^4.1.1",
+    "eslint": "^3.19.0",
     "express": "^4.15.2",
     "git-validate": "^2.2.2",
     "lab": "^14.0.0",
     "moonboots-express": "^3.0.0",
     "standard": "^10.0.2"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "eslint"  
+    ]
   },
   "homepage": "https://github.com/lukekarrys/spa-crawler",
   "keywords": [
