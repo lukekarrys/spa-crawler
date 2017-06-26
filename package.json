@@ -29,6 +29,11 @@
     "moonboots-express": "^3.0.0",
     "standard": "^10.0.2"
   },
+  "greenkeeper": {
+    "ignore": [
+      "eslint"  
+    ]
+  },
   "homepage": "https://github.com/lukekarrys/spa-crawler",
   "keywords": [
     "crawler",
