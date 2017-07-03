@@ -45,7 +45,6 @@ crawler.start().crawler
   .on('spaurl', console.log.bind(console))
   // When the crawler is done, kill the process
   .on('complete', () => process.exit(0))
-})
 ```
 
 The above code will output:
