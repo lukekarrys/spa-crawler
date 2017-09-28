@@ -32,12 +32,8 @@
   "greenkeeper": {
     "ignore": [
       "code",
+      "eslint",
       "lab"
-    ]
-  },
-  "greenkeeper": {
-    "ignore": [
-      "eslint"  
     ]
   },
   "homepage": "https://github.com/lukekarrys/spa-crawler",
