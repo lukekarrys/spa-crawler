@@ -26,7 +26,7 @@
     "express": "^4.15.2",
     "git-validate": "^2.2.2",
     "lab": "^14.0.0",
-    "moonboots-express": "^3.0.0",
+    "moonboots-express": "^4.0.0",
     "standard": "^10.0.2"
   },
   "greenkeeper": {
