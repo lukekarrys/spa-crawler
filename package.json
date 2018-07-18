@@ -43,7 +43,7 @@
     "spa"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "pre-commit": [
     "lint",
     "validate",
